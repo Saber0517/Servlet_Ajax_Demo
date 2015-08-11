@@ -13,16 +13,37 @@
 
 <div id="id01"></div>
 <div id="createFrom"></div>
+<script type="text/javascript" src="js/map.js"></script>
 <script type="text/javascript">
-
+    var bufferMap = new Map();
     var search = document.getElementById("search");
     search.onclick = searchRsult;
 
     function searchRsult() {
         var keyword = document.getElementById("loaction").value;
-        xmlhttp.open("POST", url, true);
-        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xmlhttp.send("city=" + encodeURI(encodeURI(keyword)));
+        var myarr = searchBuffer(keyword);
+        if (false != myarr||myarr.size>0) {
+            myFunction(myarr);
+        } else {
+            xmlhttp.open("POST", url, true);
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlhttp.send("city=" + encodeURI(encodeURI(keyword)));
+        }
+
+    }
+
+    function searchBuffer(keyword) {
+        if (null != bufferMap.get(keyword)) {
+            return bufferMap.get(keyword);
+        } else {
+            return false;
+        }
+    }
+
+    function bufferResult(keyword, result) {
+        if (null == bufferMap.get(keyword)) {
+            bufferMap.put(keyword, result);
+        }
     }
 
     var xmlhttp = new XMLHttpRequest();
@@ -30,8 +51,10 @@
 
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var keyword = document.getElementById("loaction").value;
             var json = decodeURIComponent(xmlhttp.responseText);
             var myArr = JSON.parse(json);
+            bufferResult(keyword, myArr);
             console.log(myArr);
             myFunction(myArr);
         }
@@ -58,7 +81,7 @@
 
             out += arr[i].id + ' ' +
                     arr[i].cityId + ' ' + arr[i].city + ' ' + arr[i].provinceId;
-            input.value  = arr[i].id + ' ' +
+            input.value = arr[i].id + ' ' +
                     arr[i].cityId + ' ' + arr[i].city + ' ' + arr[i].provinceId;
 
             form.appendChild(input);
@@ -67,7 +90,7 @@
 
         }
         var createForm = document.getElementById("createFrom");
-        if(createForm.hasChildNodes()){
+        if (createForm.hasChildNodes()) {
             createForm.removeChild(createForm.firstChild);
         }
 
