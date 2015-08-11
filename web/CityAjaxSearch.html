@@ -6,9 +6,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body>
+
+<input type="button" id="search" value="search"/>
+<input type="text" id="loaction">
+
+
 <div id="id01"></div>
-<div id="rs"></div>
+<div id="createFrom"></div>
 <script type="text/javascript">
+
+    var search = document.getElementById("search");
+    search.onclick = searchRsult;
+
+    function searchRsult() {
+        var keyword = document.getElementById("loaction").value;
+        xmlhttp.open("POST", url, true);
+        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlhttp.send("city=" + encodeURI(encodeURI(keyword)));
+    }
+
     var xmlhttp = new XMLHttpRequest();
     var url = "SearchCityServlet";
 
@@ -20,20 +36,47 @@
             myFunction(myArr);
         }
     }
-    xmlhttp.open("POST", url, true);
-    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xmlhttp.send("city=" + encodeURI(encodeURI("海")));
 
     //    xmlhttp.send();
 
     function myFunction(arr) {
+        var form = document.createElement("form");
         var out = "";
         var i;
         for (i = 0; i < arr.length; i++) {
-            out +=  arr[i].id + ' ' +
-                    arr[i].cityId +' '+ arr[i].city+' '+arr[i].provinceId;
+            var input = document.createElement("input");
+            input.type = "text";
+            var tokenID = "input" + i;
+            input.id = tokenID;
+
+            var button = document.createElement("button");
+            button.innerHTML = "delete";
+            button.type = "button";
+            var btnID = "btn" + i;
+            button.id = btnID;
+            //button.setAttribute("onclick", "delItem('" + btnID + "','" + tokenID + "')");
+
+            out += arr[i].id + ' ' +
+                    arr[i].cityId + ' ' + arr[i].city + ' ' + arr[i].provinceId;
+            input.value  = arr[i].id + ' ' +
+                    arr[i].cityId + ' ' + arr[i].city + ' ' + arr[i].provinceId;
+
+            form.appendChild(input);
+            //form.appendChild(button);
+            form.appendChild(document.createElement("br"));
+
+
         }
+        document.getElementById("createFrom").appendChild(form);
         document.getElementById("id01").innerHTML = out;
+    }
+
+
+    function delItem(itemId, inputId) {
+        var item = document.getElementById(itemId);
+        item.remove();
+        var item2 = document.getElementById(inputId);
+        item2.remove();
     }
 
 
