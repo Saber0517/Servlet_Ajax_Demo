@@ -17,7 +17,7 @@
             var button = document.createElement("button");
             button.innerHTML = "delete";
             button.type = "button";
-            button.onclick = function (i) {
+            button.onclick = function () {
                 var r = this.parentNode;
                 r.remove(button);
                 r.remove(this);
@@ -47,6 +47,46 @@
 
     var formBtn = document.getElementById("createFrom");
     formBtn.onclick = createFormByJs;
+
+
+
+    ///
+
+    function addFood() {
+        var newFoodName=document.getElementById("foodName").value;
+        var newFoodPrice=document.getElementById("price").value;
+
+        var idToken=Math.random();
+
+        //var foodTableBody=document.getElementById("foodTableBody");
+        var foodTableBody=document.getElementsByTagName("tbody")[0];
+        var newTr=document.createElement("tr");
+        newTr.setAttribute("id","foodRow"+idToken);
+        var newFoodNameTd=document.createElement("td");
+        newFoodNameTd.innerText=newFoodName;
+
+
+        var newFoodPriceTd=document.createElement("td");
+        newFoodPriceTd.innerText=newFoodPrice;
+
+
+        var newDeleteButton=document.createElement("button");
+        newDeleteButton.innerHTML="Delete";
+        newDeleteButton.setAttribute("class","btn btn-danger");
+        newDeleteButton.setAttribute("onclick","delFood("+"'foodRow"+idToken+"')");
+        newTr.appendChild(newFoodNameTd);
+        newTr.appendChild(newFoodPriceTd);
+        newTr.appendChild(newDeleteButton);
+        //foodTableBody.appendChild(newTr);
+    }
+
+    function delFood(elementId){
+        var foodRow=document.getElementById(elementId);
+        foodRow.remove();
+    }
+
+    var addFoodButton=document.getElementById("addFood");
+    addFoodButton.onclick=addFood;
 </script>
 </body>
 
