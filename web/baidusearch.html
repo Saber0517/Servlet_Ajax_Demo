@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<button id="createFrom">createForm</button>
+<div id="booking"></div>
+<script type="text/javascript">
+    function createFormByJs() {
+        var form = document.createElement("form");
+        for (var i = 0; i < 3; i++) {
+            var input = document.createElement("input");
+            input.type = "text";
+            input.id = "input"+i;
+            var button = document.createElement("button");
+            button.innerHTML = "delete";
+            button.type = "button";
+            button.onclick = function (i) {
+                var r = this.parentNode;
+                r.remove(button);
+                r.remove(this);
+            };
+
+            form.appendChild(input);
+            form.appendChild(button);
+            form.appendChild(document.createElement("br"));
+        }
+
+
+        var button = document.createElement("button");
+        button.type = "button";
+        button.innerHTML = "add";
+        button.onclick = function () {
+            var r = this.parentNode;
+            var input = document.createElement("input");
+            input.type = "text";
+            r.appendChild(input);
+            r.appendChild(document.createElement("br"));
+        };
+        form.appendChild(button);
+        form.appendChild(document.createElement("br"));
+        var booking = document.getElementById("booking");
+        booking.appendChild(form);
+    }
+
+    var formBtn = document.getElementById("createFrom");
+    formBtn.onclick = createFormByJs;
+</script>
+</body>
+
+</html>
