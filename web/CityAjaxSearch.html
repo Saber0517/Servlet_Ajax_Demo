@@ -65,9 +65,13 @@
             //form.appendChild(button);
             form.appendChild(document.createElement("br"));
 
-
         }
-        document.getElementById("createFrom").appendChild(form);
+        var createForm = document.getElementById("createFrom");
+        if(createForm.hasChildNodes()){
+            createForm.removeChild(createForm.firstChild);
+        }
+
+        createForm.appendChild(form);
         document.getElementById("id01").innerHTML = out;
     }
 
