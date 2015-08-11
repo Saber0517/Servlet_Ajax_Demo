@@ -13,15 +13,15 @@
         for (var i = 0; i < 3; i++) {
             var input = document.createElement("input");
             input.type = "text";
-            input.id = "input"+i;
+            var tokenID = "input" + i;
+            input.id = tokenID;
+
             var button = document.createElement("button");
             button.innerHTML = "delete";
             button.type = "button";
-            button.onclick = function () {
-                var r = this.parentNode;
-                r.remove(button);
-                r.remove(this);
-            };
+            var btnID = "btn" + i;
+            button.id = btnID;
+            button.setAttribute("onclick", "delItem('" + btnID + "','" + tokenID + "')");
 
             form.appendChild(input);
             form.appendChild(button);
@@ -29,18 +29,6 @@
         }
 
 
-        var button = document.createElement("button");
-        button.type = "button";
-        button.innerHTML = "add";
-        button.onclick = function () {
-            var r = this.parentNode;
-            var input = document.createElement("input");
-            input.type = "text";
-            r.appendChild(input);
-            r.appendChild(document.createElement("br"));
-        };
-        form.appendChild(button);
-        form.appendChild(document.createElement("br"));
         var booking = document.getElementById("booking");
         booking.appendChild(form);
     }
@@ -48,45 +36,13 @@
     var formBtn = document.getElementById("createFrom");
     formBtn.onclick = createFormByJs;
 
-
-
-    ///
-
-    function addFood() {
-        var newFoodName=document.getElementById("foodName").value;
-        var newFoodPrice=document.getElementById("price").value;
-
-        var idToken=Math.random();
-
-        //var foodTableBody=document.getElementById("foodTableBody");
-        var foodTableBody=document.getElementsByTagName("tbody")[0];
-        var newTr=document.createElement("tr");
-        newTr.setAttribute("id","foodRow"+idToken);
-        var newFoodNameTd=document.createElement("td");
-        newFoodNameTd.innerText=newFoodName;
-
-
-        var newFoodPriceTd=document.createElement("td");
-        newFoodPriceTd.innerText=newFoodPrice;
-
-
-        var newDeleteButton=document.createElement("button");
-        newDeleteButton.innerHTML="Delete";
-        newDeleteButton.setAttribute("class","btn btn-danger");
-        newDeleteButton.setAttribute("onclick","delFood("+"'foodRow"+idToken+"')");
-        newTr.appendChild(newFoodNameTd);
-        newTr.appendChild(newFoodPriceTd);
-        newTr.appendChild(newDeleteButton);
-        //foodTableBody.appendChild(newTr);
+    function delItem(itemId, inputId) {
+        var item = document.getElementById(itemId);
+        item.remove();
+        var item2 = document.getElementById(inputId);
+        item2.remove();
     }
 
-    function delFood(elementId){
-        var foodRow=document.getElementById(elementId);
-        foodRow.remove();
-    }
-
-    var addFoodButton=document.getElementById("addFood");
-    addFoodButton.onclick=addFood;
 </script>
 </body>
 
