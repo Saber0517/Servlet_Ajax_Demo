@@ -3,8 +3,7 @@
 <html>
 <head>
     <title></title>
-
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
 <input type="button" id="test"/>
@@ -39,7 +38,7 @@
         }
         xhr.send("uname=" + unameValue);
     }
-    S
+
     function checkUnameByGet() {
         var uanme = document.getElementById("uname");
         var unameValue = uname.value;
@@ -58,6 +57,6 @@
     //testBtn.onclick = getXhr;
 
     var uname = document.getElementById("uname");
-    uname.onblur = checkUameByPost;
+    uname.onblur = checkUnameByGet;
 </script>
 </html>

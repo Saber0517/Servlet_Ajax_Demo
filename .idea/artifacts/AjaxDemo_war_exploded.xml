@@ -7,6 +7,16 @@
         <element id="directory" name="classes">
           <element id="module-output" name="week5_day_2_AjaxDemo" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="application" name="ojdbc6-11.2.0.4" />
+          <element id="library" level="application" name="jstl-1.2" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-servlet-api:7.0.63" />
+          <element id="library" level="project" name="Maven: commons-dbcp:commons-dbcp:1.4" />
+          <element id="library" level="project" name="Maven: commons-pool:commons-pool:1.5.4" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.3" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.3" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.3.1" />
+        </element>
       </element>
     </root>
   </artifact>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<div id="id01"></div>
+<div id="rs"></div>
+<script type="text/javascript">
+    var xmlhttp = new XMLHttpRequest();
+    var url = "SearchCityServlet";
+
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var json = decodeURIComponent(xmlhttp.responseText);
+            var myArr = JSON.parse(json);
+            console.log(myArr);
+            myFunction(myArr);
+        }
+    }
+    xmlhttp.open("POST", url, true);
+    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlhttp.send("city=" + encodeURI(encodeURI("海")));
+
+    //    xmlhttp.send();
+
+    function myFunction(arr) {
+        var out = "";
+        var i;
+        for (i = 0; i < arr.length; i++) {
+            out +=  arr[i].id + ' ' +
+                    arr[i].cityId +' '+ arr[i].city+' '+arr[i].provinceId;
+        }
+        document.getElementById("id01").innerHTML = out;
+    }
+
+
+</script>
+</body>
+</html>
