@@ -1,6 +1,7 @@
 package servlet;
 
 import com.google.gson.Gson;
+import com.sun.deploy.net.HttpRequest;
 import dao.CityDao;
 import daoimpl.CityDaoImpl;
 import entity.CityEntity;
@@ -23,19 +24,33 @@ import java.util.List;
 public class SearchCityServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("SearchCityServlet....");
+        System.out.println(request.getMethod());
+        String city = "";
+//        if ("POST".equals(request.getMethod())) {
+//            city = URLDecoder.decode(request.getParameter("city"), "utf-8");
+//        } else {
+//            city = URLDecoder.decode(request.getParameter("city"), "utf-8");
+//        }
+        System.out.println("city=" + city);
+        //request.setCharacterEncoding("UTF-8");
+        city = request.getParameter("city");//注意前段
 
-        request.setCharacterEncoding("UTF-8");
-        String city = URLDecoder.decode(request.getParameter("city"), "utf-8");
+//        city = URLDecoder.decode(city, "UTF-8");
+//        city = URLDecoder.decode(city, "UTF-8");
         if (null != city) {
             CityDao cityDao = new CityDaoImpl();
             List<CityEntity> cityEntityList = cityDao.selectCity(city);
             Gson gson = new Gson();
             String resultJson = gson.toJson(cityEntityList);
-            resultJson = URLEncoder.encode(resultJson, "UTF-8");
-            //System.out.printf(resultJson);
+            System.out.println(resultJson);
+//            resultJson = URLEncoder.encode(resultJson, "UTF-8");
+//            response.setContentType("application/json;charset=utf-8");
+//            response.setContentType("application/json");
+            response.setContentType("charset=utf-8");
+            System.out.printf(resultJson);
             PrintWriter out = response.getWriter();
             out.write(resultJson);
-        out.flush();
+            out.flush();
             out.close();
         }
     }

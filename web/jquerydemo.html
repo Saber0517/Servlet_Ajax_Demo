@@ -1,0 +1,103 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        //var Jquery = jQuery.noConflict();//等于把$符号改了名字，防止库冲突
+        $(function () { //等同于 window.onload=function(){}
+            jQuery("button:first").on("click", function (evt) {
+                alert("hello");
+                //                $("div:first").show();  
+                //$("div:first").slideDown(2000);
+            });
+            //$("div:first").hide();
+
+
+            //$("h1").addClass("s");
+            //$(":header").addClass("s");//标题            
+            //$("h1,h2").addClass("s");
+            //$("[name]").addClass("s");
+
+            //select fun
+            jQuery(print);
+
+            //select html
+            //$("h1").addClass("s");
+
+            //select element
+            //jQuery(document.getElementById("a")).addClass("s");
+            //jQuery("#a").addClass("s");
+
+            //css
+            //jQuery("#a").text("123");
+            //jQuery("#a").append(jQuery("#a[]").text());
+
+            //            jQuery("div :header").addClass("s");
+            //jQuery("#div>:header").addClass("s");
+            
+            //pratice
+             jQuery("#onclick").on("click",function(){
+                 alert("on click event");
+             });
+            jQuery("#onclickData").on("click",{name:"-1990-"},alertEventData);
+            
+            jQuery("#cloneAppendTo").on("click",function(){
+               $("#a").clone().appendTo("div"); 
+            });
+            
+            
+            jQuery("input[name=uname]").on("blur",function(){
+                //alert($(this).val());
+                var unameInput = $(this);
+                var uname = unameInput.val();
+                //uname = encodeURI(encodeURI(uname));//jquery可以获取meta的编码，因此可以知道目前页面编码，json在发送的时候     
+                jQuery.get("SearchCityServlet",{city:uname},function(data){
+                    $("<span></saan>").text(decodeURIComponent(data)).insertAfter(unameInput);
+                })
+            });
+        })
+
+        function print() {
+            console.info("test function selct");
+        }
+        
+        function alertEventData(event){
+            alert("data:"+event.data.name);
+        }
+        
+       
+    </script>
+    <style type="text/css">
+        .s {
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="ajax">testAjax</button>
+    <input name ="uname" value="海"/>
+    <br/>    
+    
+    <button>test</button>
+    <br/>
+    <button id="onclick">test on click event</button><br/>
+    
+    <button id="onclickData">test on click event passing data</button><br/>
+    
+    <button id="cloneAppendTo">test clone append to</button>
+        
+    <input type="text" value="jyhon" />
+    <div id="div">
+        <h1 name="a" id="a">hello </h1>
+        <div>
+            <h3 name="c">superinner</h3></div>
+        <h2 name="b">inner</h2>
+
+    </div>
+
+</body>
+
+</html>
